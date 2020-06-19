@@ -1,0 +1,33 @@
+//需要生成的类
+package com.example.helloworld;
+public final class HelloWorld {
+  public static void main(String[] args) {
+    System.out.println("Hello, JavaPoet!");
+  }
+}
+
+//生成规则
+
+// 构建方法
+ MethodSpec main = MethodSpec.methodBuilder("main")
+            .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+            .returns(void.class)
+            .addParameter(String[].class, "args")
+            .addStatement("$T.out.println($S)", System.class, "Hello, JavaPoet!")
+            .build();
+
+    // 构建类
+    TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld")
+            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+            .addMethod(main)
+            .build();
+
+    // 生成文件
+    JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
+            .build();
+// 写入文件
+javaFile.writeTo(System.out);
+
+
+>>>>>>>>>>>>>>>>>>>>>>>   addStatement与addCode的区别？
+    答：addStatement会自动添加分号，addCode不会自动添加任何符号

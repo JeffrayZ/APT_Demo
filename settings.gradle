@@ -1,0 +1,4 @@
+include ':annotation'
+include ':compiler'
+include ':app'
+rootProject.name = "AptJavaDemo"
